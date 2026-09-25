@@ -125,4 +125,71 @@ test.describe('Smoke Tests - Critical Routes', () => {
     await expect(mainHeading).toBeVisible();
     await expect(mainHeading).toContainText('Leaderboard');
   });
+
+  test('Learn page loads and renders correctly', async ({ page }) => {
+    await page.goto('/learn');
+    await page.waitForLoadState('networkidle');
+
+    // Verify page title
+    await expect(page).toHaveTitle(/Xelma/i);
+
+    // Verify main heading is present
+    const mainHeading = page.locator('h1');
+    await expect(mainHeading).toBeVisible();
+    await expect(mainHeading).toContainText('Academy');
+
+    // Verify Expert Guides section heading is present
+    const guidesHeading = page.locator('h2').filter({ hasText: 'Expert Guides' });
+    await expect(guidesHeading).toBeVisible({ timeout: 10000 });
+  });
+
+  test('Profile page loads and renders correctly', async ({ page }) => {
+    await page.goto('/profile');
+    await page.waitForLoadState('networkidle');
+
+    // Verify page title
+    await expect(page).toHaveTitle(/Xelma/i);
+
+    // Verify main heading is present
+    const mainHeading = page.locator('h1');
+    await expect(mainHeading).toBeVisible();
+    await expect(mainHeading).toContainText('Profile');
+
+    // Verify profile section label
+    const profileLabel = page.locator('p').filter({ hasText: 'Player identity' });
+    await expect(profileLabel).toBeVisible();
+  });
+
+  test('Pools page loads and renders correctly', async ({ page }) => {
+    await page.goto('/pools');
+    await page.waitForLoadState('networkidle');
+
+    // Verify page title
+    await expect(page).toHaveTitle(/Xelma/i);
+
+    // Verify main heading is present
+    const mainHeading = page.locator('h1');
+    await expect(mainHeading).toBeVisible();
+    await expect(mainHeading).toContainText('Liquidity Pools');
+
+    // Verify subtitle is present
+    const subtitle = page.locator('p').filter({ hasText: 'Transparency and historical stats' });
+    await expect(subtitle).toBeVisible({ timeout: 10000 });
+  });
+
+  test('Tournament page loads and renders correctly', async ({ page }) => {
+    await page.goto('/tournament');
+    await page.waitForLoadState('networkidle');
+
+    // Verify page title
+    await expect(page).toHaveTitle(/Xelma/i);
+
+    // Verify main heading is present
+    const mainHeading = page.locator('h1');
+    await expect(mainHeading).toBeVisible();
+
+    // Verify Coming Soon badge is present
+    const comingSoonBadge = page.locator('text=Coming Soon');
+    await expect(comingSoonBadge).toBeVisible();
+  });
 });
